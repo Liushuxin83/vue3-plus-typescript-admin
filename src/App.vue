@@ -1,5 +1,7 @@
 <template>
-  初始化项目
+  <router-view></router-view>
 </template>
 
-<style lang="less"></style>
+<style lang="less">
+@import url('./assets/css/base.less');
+</style>
