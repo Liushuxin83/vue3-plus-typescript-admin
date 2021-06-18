@@ -58,11 +58,12 @@ export default defineComponent({
         callback(new Error('请输入密码'))
       } else {
         if (state.loginForm.password !== '') {
-          (loginFormRef.value as any).validateField('password')
+          (loginFormRef.value as any).validateField('repassword')
         }
         callback()
       }
     }
+
     // 验证邮箱的规则
     // const checkEmail = (rule: any, value: string, callback: any) => {
     //   const regEmail = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,5}$/
@@ -158,6 +159,8 @@ export default defineComponent({
           console.log(data)
           if (data.meta.status === 200) {
             store.state.userInfo = data.data
+            window.localStorage.setItem('userInfoUsername', data.data.username)
+            window.localStorage.setItem('userInfoToken', data.data.token)
             router.push('/home')
             ElMessage.success({
               message: '登录成功！',

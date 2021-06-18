@@ -1,7 +1,15 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import store from '../store/index'
 const Login = () => import('../views/Login.vue')
 const Home = () => import('../views/Home.vue')
+const Users = () => import('../views/users/Users.vue')
+const Roles = () => import('../views/rights/Role.vue')
+const RightsList = () => import('../views/rights/RightsList.vue')
+const GoodsList = () => import('../views/goodsManage/GoodsList.vue')
+const CategoryParams = () => import('../views/goodsManage/CategoryParams.vue')
+const GoodsCategory = () => import('../views/goodsManage/GoodsCategory.vue')
+const OrderList = () => import('../views/orderManage/OrderList.vue')
+const DataShow = () => import('../views/dataManage/DataShow.vue')
+const Welcome = () => import('../views/Welcome.vue')
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -20,7 +28,55 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/home',
     name: 'Home',
-    component: Home
+    component: Home,
+    redirect: '/home/welcome',
+    children: [
+      {
+        path: '/home/welcome',
+        name: 'Welcome',
+        component: Welcome
+      },
+      {
+        path: '/users',
+        name: 'Users',
+        component: Users
+      },
+      {
+        path: '/roles',
+        name: 'Roles',
+        component: Roles
+      },
+      {
+        path: '/rights',
+        name: 'RightsList',
+        component: RightsList
+      },
+      {
+        path: '/goods',
+        name: 'GoodsList',
+        component: GoodsList
+      },
+      {
+        path: '/params',
+        name: 'CategoryParams',
+        component: CategoryParams
+      },
+      {
+        path: '/categories',
+        name: 'GoodsCategory',
+        component: GoodsCategory
+      },
+      {
+        path: '/orders',
+        name: 'OrderList',
+        component: OrderList
+      },
+      {
+        path: '/reports',
+        name: 'DataShow',
+        component: DataShow
+      }
+    ]
   }
 ]
 
@@ -32,8 +88,9 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   if (to.path === '/login') return next()
   // 获取token   null
-  console.log(store.state.userInfo)
-  const tokenStr = store.state.userInfo
+  // console.log(store.state.userInfo)
+  // const tokenStr = store.state.userInfo
+  const tokenStr = window.localStorage.getItem('userInfoToken')
   if (!tokenStr) return next('/login')
   next()
 })

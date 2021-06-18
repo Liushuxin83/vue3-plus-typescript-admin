@@ -1,7 +1,7 @@
 /*
   封装axios
  */
-import store from '../store/index'
+// import store from '../store/index'
 import axios from 'axios'
 // axios的config参数接口约束
 // interface axiosConfig {
@@ -23,8 +23,10 @@ export function request (config: any) {
       // Do something before request is sent
       // console.log(config)
 
-      if (store.state.userInfo) {
-        config.headers.Authorization = store.state.userInfo.token
+      if (window.localStorage.getItem('userInfoToken')) {
+        config.headers.Authorization = window.localStorage.getItem(
+          'userInfoToken'
+        )
         return config
       } else {
         return config

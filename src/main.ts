@@ -2,12 +2,15 @@ import { createApp } from 'vue'
 //  引入element ui
 import ElementPlus from 'element-plus'
 import 'element-plus/lib/theme-chalk/index.css'
-
+// 解决element-plus中el-pagination分页组件显示英文
+import locale from 'element-plus/lib/locale/lang/zh-cn' // element-plus
 import App from './App.vue'
 import router from './router'
 import store from './store'
 createApp(App)
   .use(store)
   .use(router)
-  .use(ElementPlus)
+  .use(ElementPlus, {
+    locale
+  })
   .mount('#app')
